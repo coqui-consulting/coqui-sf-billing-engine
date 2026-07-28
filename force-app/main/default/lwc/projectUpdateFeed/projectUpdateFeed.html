@@ -1,0 +1,25 @@
+<template>
+  <lightning-card title="Project Updates" icon-name="standard:feed">
+    <div class="slds-p-horizontal_medium">
+      <template if:true={error}>
+        <p class="slds-text-color_error">{error}</p>
+      </template>
+      <template if:false={hasUpdates}>
+        <template if:false={error}>
+          <p class="slds-text-color_weak">No client-visible updates yet.</p>
+        </template>
+      </template>
+      <template for:each={updates} for:item="update">
+        <div
+          key={update.Id}
+          class="slds-box slds-box_x-small slds-m-bottom_small"
+        >
+          <p class="slds-text-title slds-text-color_weak">
+            {update.Update_Date__c}
+          </p>
+          <p class="slds-text-body_regular">{update.Summary__c}</p>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

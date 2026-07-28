@@ -1,0 +1,37 @@
+<template>
+  <lightning-card
+    title="Milestone Timeline"
+    icon-name="standard:timesheet_entry"
+  >
+    <div class="slds-p-horizontal_medium">
+      <template if:true={error}>
+        <p class="slds-text-color_error">{error}</p>
+      </template>
+      <template if:false={hasMilestones}>
+        <template if:false={error}>
+          <p class="slds-text-color_weak">No milestones yet.</p>
+        </template>
+      </template>
+      <ul class="slds-timeline">
+        <template for:each={milestones} for:item="milestone">
+          <li key={milestone.Id} class="slds-p-vertical_x-small">
+            <div class="slds-grid slds-grid_align-spread">
+              <span class="slds-truncate">{milestone.Name}</span>
+              <lightning-badge
+                label={milestone.Status__c}
+                class={milestone.badgeVariant}
+              ></lightning-badge>
+            </div>
+            <div class="slds-text-body_small slds-text-color_weak">
+              Due {milestone.Due_Date__c} &middot;
+              <lightning-formatted-number
+                value={milestone.Amount__c}
+                format-style="currency"
+              ></lightning-formatted-number>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </lightning-card>
+</template>

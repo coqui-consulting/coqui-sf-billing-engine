@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel
+  >BiWeekly Invoice Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BiWeekly Invoice Flow</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <formulas>
+        <name>PeriodStartDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 13</expression>
+    </formulas>
+    <formulas>
+        <name>PeriodEndDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>IsBiweeklyWeek</name>
+        <dataType>Boolean</dataType>
+        <description
+    >Scheduled-Triggered Flows only support Once/Daily/Weekly recurrence, not biweekly, so this runs weekly and skips every other run based on weeks elapsed since a fixed reference Monday.</description>
+        <expression
+    >MOD(FLOOR((TODAY() - DATE(2026,1,5)) / 7), 2) = 0</expression>
+    </formulas>
+
+    <decisions>
+        <name>Is_Biweekly_Run</name>
+        <label>Is Biweekly Run?</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <defaultConnectorLabel>Skip This Week</defaultConnectorLabel>
+        <rules>
+            <name>Run_This_Week</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsBiweeklyWeek</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Generate_Invoices</targetReference>
+            </connector>
+            <label>Run This Week</label>
+        </rules>
+    </decisions>
+
+    <actionCalls>
+        <name>Generate_Invoices</name>
+        <label>Generate Invoices</label>
+        <locationX>176</locationX>
+        <locationY>250</locationY>
+        <actionName>GenerateBiweeklyInvoicesAction</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>periodStart</name>
+            <value>
+                <elementReference>PeriodStartDate</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>periodEnd</name>
+            <value>
+                <elementReference>PeriodEndDate</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Biweekly_Run</targetReference>
+        </connector>
+        <triggerType>Scheduled</triggerType>
+        <schedule>
+            <frequency>Weekly</frequency>
+            <startDate>2026-07-20</startDate>
+            <startTime>06:00:00.000Z</startTime>
+        </schedule>
+    </start>
+</Flow>

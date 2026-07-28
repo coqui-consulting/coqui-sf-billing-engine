@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Billing Setting</label>
+    <pluralLabel>Billing Settings</pluralLabel>
+    <description
+  >Hourly billing rate(s). InvoiceCalculator reads Rate__c from here instead of a hardcoded value. This repo ships a single placeholder record (Standard Rate, 100.00) so a scratch org deploys and runs out of the box — real rates are set directly in the deployed org (Setup &gt; Custom Metadata Types &gt; Billing Setting), never committed to source.</description>
+    <visibility>Public</visibility>
+</CustomObject>
