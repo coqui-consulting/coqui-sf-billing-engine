@@ -1,0 +1,64 @@
+<template>
+  <lightning-card title="Invoice History" icon-name="standard:invoice">
+    <div class="slds-p-horizontal_medium">
+      <template if:true={error}>
+        <p class="slds-text-color_error">{error}</p>
+      </template>
+      <template if:false={hasInvoices}>
+        <template if:false={error}>
+          <p class="slds-text-color_weak">No invoices yet.</p>
+        </template>
+      </template>
+      <template if:true={hasInvoices}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+          <thead>
+            <tr class="slds-line-height_reset">
+              <th scope="col">Invoice</th>
+              <th scope="col">
+                <lightning-button-icon
+                  icon-name={dateSortIcon}
+                  variant="bare"
+                  alternative-text="Sort by date"
+                  onclick={handleSortByDate}
+                ></lightning-button-icon>
+                Date
+              </th>
+              <th scope="col">Due</th>
+              <th scope="col">
+                <lightning-button-icon
+                  icon-name={amountSortIcon}
+                  variant="bare"
+                  alternative-text="Sort by amount"
+                  onclick={handleSortByAmount}
+                ></lightning-button-icon>
+                Amount
+              </th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template for:each={invoices} for:item="invoice">
+              <tr key={invoice.Id}>
+                <td>{invoice.Name}</td>
+                <td>{invoice.Invoice_Date__c}</td>
+                <td>{invoice.Due_Date__c}</td>
+                <td>
+                  <lightning-formatted-number
+                    value={invoice.Amount__c}
+                    format-style="currency"
+                  ></lightning-formatted-number>
+                </td>
+                <td>
+                  <lightning-badge
+                    label={invoice.Status__c}
+                    class={invoice.badgeVariant}
+                  ></lightning-badge>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </template>
+    </div>
+  </lightning-card>
+</template>

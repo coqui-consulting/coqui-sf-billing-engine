@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billed__c</fullName>
+    <label>Billed</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <description
+  >Set true by InvoiceCalculator once this entry has been rolled into an Invoice.</description>
+</CustomField>

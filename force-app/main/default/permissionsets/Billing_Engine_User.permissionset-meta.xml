@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Billing Engine User</label>
+    <description
+  >Standard CRUD access to the billing engine objects for consultants logging time and managing engagements. No custom metadata (rate) access.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+
+    <objectPermissions>
+        <object>Engagement__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>false</allowDelete>
+        <viewAllRecords>false</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <object>Time_Entry__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>true</allowDelete>
+        <viewAllRecords>false</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <object>Invoice__c</object>
+        <allowCreate>false</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>false</allowEdit>
+        <allowDelete>false</allowDelete>
+        <viewAllRecords>false</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <object>Milestone__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>false</allowDelete>
+        <viewAllRecords>false</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <object>Project_Update__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>false</allowDelete>
+        <viewAllRecords>false</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+
+    <fieldPermissions><field>Engagement__c.Account__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Engagement__c.Budget_Amount__c</field><readable
+    >true</readable><editable>false</editable></fieldPermissions>
+    <fieldPermissions><field>Engagement__c.Start_Date__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+
+    <fieldPermissions><field>Time_Entry__c.Billed__c</field><readable
+    >true</readable><editable>false</editable></fieldPermissions>
+    <fieldPermissions><field>Time_Entry__c.Consultant__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Time_Entry__c.Description__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+
+    <fieldPermissions><field>Invoice__c.Period_End__c</field><readable
+    >true</readable><editable>false</editable></fieldPermissions>
+    <fieldPermissions><field>Invoice__c.Period_Start__c</field><readable
+    >true</readable><editable>false</editable></fieldPermissions>
+
+    <fieldPermissions><field>Milestone__c.Due_Date__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+
+    <fieldPermissions><field>Project_Update__c.Summary__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field
+    >Project_Update__c.Visible_to_Client__c</field><readable
+    >true</readable><editable>true</editable></fieldPermissions>
+
+    <tabSettings>
+        <tab>Engagement__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Time_Entry__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Invoice__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Milestone__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

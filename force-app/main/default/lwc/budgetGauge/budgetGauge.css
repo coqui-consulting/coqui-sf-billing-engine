@@ -1,0 +1,11 @@
+.budget-healthy {
+  background-color: #04844b;
+}
+
+.budget-warning {
+  background-color: #ffb75d;
+}
+
+.budget-critical {
+  background-color: #ea001e;
+}

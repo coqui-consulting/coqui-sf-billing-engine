@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel
+  >Lead Conversion Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead Conversion Flow</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+    <description
+  >Standard Lead conversion creates an Opportunity (and Account/Contact) rather than firing a distinct "conversion" event, so this triggers on Opportunity creation instead of Lead - the reliable, universal signal for a just-converted Lead. Entry condition requires AccountId, since converted Opportunities always have one.</description>
+
+    <recordCreates>
+        <name>Create_Engagement</name>
+        <label>Create Engagement</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>$Record.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Client_Name__c</field>
+            <value>
+                <elementReference>$Record.Account.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Billing_Type__c</field>
+            <value>
+                <stringValue>Hourly</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Start_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Engagement__c</object>
+    </recordCreates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Engagement</targetReference>
+        </connector>
+        <triggerType>RecordAfterSave</triggerType>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+    </start>
+</Flow>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel
+  >Overdue Invoice Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Overdue Invoice Flow</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <recordUpdates>
+        <name>Mark_Overdue</name>
+        <label>Mark Overdue</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Sent</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Due_Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Overdue</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Invoice__c</object>
+    </recordUpdates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Mark_Overdue</targetReference>
+        </connector>
+        <triggerType>Scheduled</triggerType>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-07-14</startDate>
+            <startTime>05:00:00.000Z</startTime>
+        </schedule>
+    </start>
+</Flow>

@@ -1,0 +1,42 @@
+<template>
+  <lightning-card title="Budget" icon-name="standard:metrics">
+    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+      <template if:true={error}>
+        <p class="slds-text-color_error">{error}</p>
+      </template>
+      <template if:false={hasBudget}>
+        <template if:false={error}>
+          <p class="slds-text-color_weak">No budget set for this engagement.</p>
+        </template>
+      </template>
+      <template if:true={hasBudget}>
+        <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+          <span
+            ><lightning-formatted-number
+              value={summary.billedAmount}
+              format-style="currency"
+            ></lightning-formatted-number>
+            billed</span
+          >
+          <span class="slds-text-color_weak"
+            >of
+            <lightning-formatted-number
+              value={summary.budgetAmount}
+              format-style="currency"
+            ></lightning-formatted-number
+          ></span>
+        </div>
+        <div
+          class="slds-progress-bar slds-progress-bar_large"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <span class={barVariantClass} style={barStyle}></span>
+        </div>
+        <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+          {utilizationDisplay} of budget billed
+        </p>
+      </template>
+    </div>
+  </lightning-card>
+</template>
